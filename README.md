@@ -8,21 +8,18 @@
 ---
 
 ## **1. Project Overview**
-(Provide a brief summary of your RPG game. Describe how it uses a decision tree and how the player interacts with it.)
 
-Example:
-> This project implements a text-based RPG using a **binary decision tree**. Each game event is represented as a node, and the player progresses by choosing between two paths at each stage. The storyline is loaded from an external text file (`story.txt`), which is parsed to construct the decision tree. The game ends when a leaf node (with `-1` as left and right children) is reached.
 
+> My project is a text-based RPG game using **binary decision trees**. Every game event is represented by a node and the player chooses their own path. The story can be created in the story.txt file. The end of the story is determined when the player has reached a node with both -1 as the left and right child.
 ---
 
 ## **2. Folder & File Structure**
-(Explain the role of each file in your project.)
 
-- **`main.cpp`** → `[Describe its function]`  
-- **`GameDecisionTree.h`** → `[Explain what this file contains]`  
-- **`Node.h`** → `[Explain what this file contains]`  
-- **`Story.h`** → `[Explain what this file contains]`  
-- **`story.txt`** → `[Explain how the game loads story events from this file]`  
+- **`main.cpp`** → `calls the core functions all in one organized place. This is where we create the objects of classes (where you're stories are created)`  
+- **`GameDecisionTree.h`** → `stores the core functions that the program will mainly use`  
+- **`Node.h`** → `stores a basic node structure which will be used by other classes`  
+- **`Story.h`** → `stores the parameter of a "story node" which would be used in other classes `  
+- **`story.txt`** → `this is where you write and create your story`  
 
 ---
 
