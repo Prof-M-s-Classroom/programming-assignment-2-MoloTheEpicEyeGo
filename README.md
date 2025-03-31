@@ -24,51 +24,68 @@
 ---
 
 ## **3. Decision Tree Construction**
-(Explain how the decision tree is built from the `story.txt` file.)
 
-- How are `Story` objects created from the text file?  
-- How are nodes linked based on left and right event numbers?  
-- What happens if an event has `-1` as left or right children?  
+- The story objects are created by first parsing the story.txt file line by line and we do this by using a loop that will parse a line into an event number, the description of event and the left and right number
+- We loop through all the existing nodes and connect each one to its left and right child, we base this on the left and right event number 
+- If a node has -1 as their right and left child, this indicates that this is the end of the story, also meaning that the node is a leaf node. 
 
 ---
 
 ## **4. Game Traversal**
-(Describe how the game moves through the decision tree.)
 
-- How does user input determine the path taken?  
-- What happens when the player reaches a leaf node?  
-- Explain the special case where multiple events lead to the same outcome.  
+- The game moves through the decision tree using user input to follow different story paths. The tree is made up of nodes, each containing a Story object
+- When the player reaches a leaf node, it will end the game because a leaf node indiciates that its the end of the story. 
+- If there is multiple parent nodes leading to the same event, the easy solution to this is to make the parent nodes point to the 
 
 ---
 
 ## **5. File Parsing & Data Loading**
 (Explain the process of reading `story.txt` and constructing the decision tree.)
 
-- How is the file read and parsed using a delimiter?  
-- How do you ensure nodes are properly linked?  
-- Any challenges faced while handling file input?  
+- The file is read by first declaring four temp vars (eventStr, desc, leftStr and rightStr), then we use "std::getline(ss, varName, delimiter)" to section out the line of string into its respective vars. we use the delimiter to specifically section out the line of text.
+- We ensure that the nodes are properly linked by storing the nodes in a nodeMap based on their event #.
+- One challenge that I experienced was something related to how CLion's settings was. The settings were incorrectly pointing to the files therefore making every test not possible to open the text file.
 
 ---
 
 ## **6. Debugging Process (Errors & Fixes)**
-(Describe one or more debugging challenges you faced and how you fixed them.)
 
-Example:
-> Initially, my program was crashing when trying to access an uninitialized node. I realized it was because I was not properly checking for `nullptr` before accessing child nodes, so I added a check to prevent accessing uninitialized memory.
+> Initially, my program was not successfully opening the story.txt file. But after doing some research, I found that the error was becuase of the "Working Directory" settings. The project had no "wWorking Directory" therefore making it impossible to open the story.txt file.
 
 ---
 
 ## **7. Sample Output & Walkthrough**
-(Provide an example of how the game runs, including player input.)
+
+root set to event #1
+
+You wake up in a forest clearing. Two paths lie ahead: one leads into dense trees, the other toward an old building. Which way do you go?
+Choose your path:
+1.
+2.
+Enter # '1 | 2': 1
+
+You take the forest path and arrive at a rushing river. Do you swim across or follow it downstream?
+Choose your path:
+1.
+2.
+Enter # '1 | 2': 2
+
+You follow the river and find a broken bridge. Do you attempt to cross or head back into the woods?
+Choose your path:
+1.
+2.
+Enter # '1 | 2': 1
+
+The story ends here. Thanks for playing!
 
 ---
 
 ## **8. Big-O Analysis of Core Methods**
 (Analyze the complexity of key methods.)
 
-- **Loading the tree from the file** → `O(?)`  
-- **Searching for an event in the tree** → `O(?)`  
-- **Game traversal efficiency** → `O(?)`  
+- **Loading the tree from the file** → `O(n)`   
+- **Searching for an event in the tree** → `O(n)`  
+- **Game traversal efficiency** → `O(n)`  
 
 ---
 
@@ -76,21 +93,6 @@ Example:
 (Describe at least one edge case you tested and its outcome.)
 
 Example:
-> I tested a scenario where the player reaches a dead-end (leaf node) and ensured the program correctly ends the game.
-
----
-
-## **10. Justification of Additional Features (If Any)**
-(If you added extra features, describe them and explain why.)
-
-Example:
-> I added a **save/load feature** so players can resume the game later. This was done by writing the current node’s event number to a file and reading it when restarting.
-
----
-
-## **Final Notes**
-- **README is mandatory** → `(-10 points deduction if missing).`  
-- **Code must compile and run** → `(Code that does not run will receive a 0).`  
-- **Do not modify provided skeleton code** → `(You may only add to it).`  
+> I tested a scenario where the player reaches a dead-end (leaf node) and ensured the program correctly ends the game. When both the left and right child pointers were nullptr, the program printed the final description once and then displayed “The story ends here. Thanks for playing!” before exiting.
 
 ---
