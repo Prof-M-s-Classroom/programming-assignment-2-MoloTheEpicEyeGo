@@ -46,14 +46,19 @@ public:
             std::string eventStr, desc, leftStr, rightStr;
 
             //the story.txt file is written in this format, therefore the code is in this order.
+
+            //parses eventStr
             std::getline(ss, eventStr, delimiter);
+            //parses desc
             std::getline(ss, desc, delimiter);
+            //parses leftStr
             std::getline(ss, leftStr, delimiter);
+            //parses rightStr
             std::getline(ss, rightStr, delimiter);
 
             //checks for invalid text
             if (eventStr.empty() || leftStr.empty() || rightStr.empty()) {
-                std::cout << "Skipping malformed line: " << line << "\n";
+                std::cout << "skipping invalid line: " << line << "\n";
                 continue;
             }
 
@@ -70,22 +75,25 @@ public:
 
             //create a nodeMap so we can build the tree
             nodeMap[eventNumber] = node;
-            // std::cout << "Parsed Event #" << eventNumber << " — \"" << desc
-            //   << "\" | Left: " << leftNumber << " | Right: " << rightNumber << "\n";
         }
 
         //loop goes through the nodeMap and connects each node to its corresponding children.
         for (auto& pair : nodeMap)
         {
+            //points node to the node we're working with.
             Node<T>* node = pair.second;
 
+            //creates a left int var, then access the story OBJECT thats inside the node we're working with
             int left = node->data.leftEventNumber;
+            //creates a right int var, then access the story OBJECT thats inside the node we're working with
             int right = node->data.rightEventNumber;
 
+            //after getting the "left" value from the story OBJECT, it checks if its a leaf node & if the event exists
             if (left != -1 && nodeMap.count(left)) {
                 node->left = nodeMap[left];
             }
 
+            //after getting the "right" value from the story OBJECT, it checks if its a leaf node & if the event exists
             if (right != -1 && nodeMap.count(right)) {
                 node->right = nodeMap[right];
             }
@@ -139,19 +147,26 @@ public:
             std::cout << "enter # '1 | 2'";
             std::cin >> choice;
 
+            //checks if user input is valid
             if (std::cin.fail() || (choice != 1 && choice != 2))
             {
+                //clears the input
                 std::cin.clear();
+
+                //when a user inputs something invalid, it will jump at most 1000 characters from the start or unti it hits a delim (\n)
+                //so the next user-input is possible
                 std::cin.ignore(1000, '\n');
                 std::cout << "invalid input. Please enter 1 or 2.\n";
                 continue;
             }
 
 
+            //if choice is 1, it will go to the left child.
             if (choice == 1 && current->left)
             {
                 current = current->left;
             }
+            //if choice is 2, it will go to the right child.
             else if (choice == 2 && current->right)
             {
                 current = current->right;
